@@ -52,6 +52,15 @@
 
     <div class="legend leaflet-container" style="height: 400px; width: 250px; top: 10px; right: 10px">
         <h3>Legende Rechts</h3>
+        
+        <!-- Checkbox freie Wohnungen -->
+        <div class="form-group">
+            <div class="form-check">
+              <input id="filter_available_flats" class="filter form-check-input" type="checkbox" checked>
+              <label for="filter_night_traffic">Freie Wohnungen</label>
+            </div>
+        </div>
+        
         <div class="leaflet-tooltip-bottom text-center">
             <small>
                 Visualisiert mit Leaflet<br>
@@ -84,7 +93,7 @@
         // L.tileLayer('https://tiles.codefor.de/berlin-2019/{z}/{x}/{y}.png').addTo(map); // Luftbild 2019
     </script>
 
-    <script>
+    <!-- <script>
         // Add JavaScript-code to generate a visualization with Leaflet
         // object map
 
@@ -102,7 +111,7 @@
         // create function to set marker popup content
         // and run whenever the map was clicked
         map.on("click", function (e) { marker.setLatLng(e.latlng).setPopupContent(`${marker.getLatLng()}`).openPopup(); }); // this = map
-    </script>
+    </script> -->
 
     <script>
         // Add JavaScript-code to generate an interactve visualization with Leaflet object map
@@ -112,21 +121,26 @@
         // the shapes.json is transferred from my server but its the same from the zip
         // d3.json("https://wosla.de/nhsh/workshop/shapes.json").then(function(json_data) {
         d3.json("immo.json").then(function(json_data) { // load file locally, this does not work out of the box
-            console.log(json_data);
+            // console.log(json_data);
             // run for-each loop over each list element from json_data
             // each element from shapes.json is a json "object",
             // i.e. it contains the 3 key: value-pairs type: t, coordinates c, options o
+            
+            //var flatArray = [];
+
             json_data.forEach(function(element) {
                 // var lat = parseInt(element["Latitude"].replace('.',""),10)
                 var lat = element["Latitude"].split('.').join("");
                 var lng = element["Longitude"].split('.').join("");
                 lat = lat[0]+lat[1]+"."+lat.substring(2, lat.size);
                 lng = lng[0]+lng[1]+"."+lng.substring(2, lng.size);
-                console.log(lat);
-                console.log(lng);
+                // console.log(lat);
+                // console.log(lng);
 
                 // print(lat)
-                L.circle([lat, lng], { "radius": 50, "fillColor": "ff0000", "fillOpacity": 0.5} ).addTo(map);
+                // L.circle([lat, lng], { "radius": 50, "fillColor": "ff0000", "fillOpacity": 0.5} ).addTo(map);
+                L.marker([lat, lng]).addTo(map);
+                //flatArray.append(element);
             });
         });
     </script>
