@@ -1,0 +1,114 @@
+<!--
+    Das Standartbeispiel mit einfachen Formen (Kreis, Polygon)
+    überlagert, die diesmal aus einer json Datei geladen werden.
+    
+    Es ist möglich, Interaktivität ((Maus)Zoom, Dragging)
+    einzuschalten. Dann wird bei einer Veränderung des Kartenausschnittes
+    der neue Mittelpunkt in der linken Legende angezeigt.
+-->
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <link rel="icon" href="favicon.ico"> 
+    <link rel="stylesheet" href="include/leaflet.css" />
+    <link rel="stylesheet" href="include/bootstrap.min.css" />
+
+  <style>
+    .map {
+      cursor: auto;
+      height: 100vh!important;
+      width: 100vw!important;
+      overflow: visible;
+      /* rotate and zoom into the map element to match the model */
+      transform: rotate(37.78deg) scale(1.353, 1.353);
+    }
+
+    .legend {
+      background: rgba(248, 249, 250, 0.85)!important;
+      overflow-y: auto;
+      padding: 0.75rem;
+      position: fixed;
+      z-index: 2000;
+    }
+  </style>
+  </head>
+
+
+  <body style="overflow:hidden">
+    <div id="map" class="map"></div>
+
+    <div class="legend leaflet-container" style="height: 330px; width: 185px; top:705px;">
+      <h3>Legende Links</h3>
+      <b>Mittelpunkt</b>
+      <div id="output"></div>
+    </div>
+
+    <div class="legend leaflet-container" style="height: 400px; width: 250px; top: 10px; right: 10px">
+      <h3>Legende Rechts</h3>
+      <div class="leaflet-tooltip-bottom text-center">
+        <small>Visualisiert mit Leaflet<br>
+        &copy; OpenStreetMap contributors</small>
+      </div>
+    </div>
+
+    <script src="include/jquery-3.4.1.min.js"></script>
+    <script src="include/leaflet.js"></script>
+    <script src="include/d3-5.15.0.min.js"></script> <!-- add d3 to load json data from local / remote -->
+    <script>
+      // Initialize map
+      // comment-out an option to enable some map interactivity
+      // Map: https://leafletjs.com/reference-1.7.1.html#map
+      var map = L.map("map", {
+        dragging: false,
+        doubleClickZoom: false,
+        scrollWheelZoom: false,
+        attributionControl: false,
+        zoomControl: false
+      });
+      
+      // create function to output map center in left legend (empty div)
+      // and run whenever the map was moved
+      map.on("moveend", function() { $("#output").text(map.getCenter()); });
+    
+      // select a background 'tile' url
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Openstreetmap
+      // L.tileLayer('https://tiles.codefor.de/berlin-2019/{z}/{x}/{y}.png').addTo(map); // Luftbild 2019
+    </script>
+    
+    <script>
+      // Add JavaScript-code to generate an interactve visualization with Leaflet object map
+      // the loading of the data is initialized once the whole document is loaded
+      
+      // read the shapse.json file, i.e. a list, into json_data and execute the rendering function with it
+      // the shapes.json is transferred from my server but its the same from the zip
+      // d3.json("https://wosla.de/nhsh/workshop/shapes.json").then(function(json_data) {
+      d3.json("shapes.json").then(function(json_data) { // load file locally, this does not work out of the box
+          // run for-each loop over each list element from json_data
+          // each element from shapes.json is a json "object",
+          // i.e. it contains the 3 key: value-pairs type: t, coordinates c, options o
+          json_data.forEach(function(element) {
+              if (element["type"] == "circle") {
+                  L.circle(element["coords"], element["options"]).addTo(map);
+              }
+              
+              if (element["type"] == "polygon") {
+                  L.polygon(element["coords"], element["options"]).addTo(map);
+              }
+              
+              if (element["type"] == "route") {
+                  L.polyline(element["coords"], element["options"]).addTo(map);
+              }
+          });
+        });
+    </script>
+      
+    <script>
+      // properly center map to match model
+      // map.setView([52.565319, 13.520065], 16); // without bootstrap
+      map.setView([52.565332, 13.51989], 16); // with bootstrap
+    </script> 
+  </body>
+</html>
