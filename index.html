@@ -43,30 +43,133 @@
 
 <body style="overflow:hidden">
     <div id="map" class="map"></div>
-
+    <!--
     <div class="legend leaflet-container" style="height: 330px; width: 185px; top:705px;">
         <h3>Legende Links</h3>
         <b>Mittelpunkt</b>
         <div id="output"></div>
     </div>
-
+        -->
     <div class="legend leaflet-container" style="height: 400px; width: 250px; top: 10px; right: 10px">
         <h3>Legende Rechts</h3>
 
         <!-- Checkbox freie Wohnungen -->
         <div class="form-group">
             <div class="form-check">
-                <input id="filter_apartments" class="filter form-check-input" type="checkbox" onclick="onclickedApartment()">
-                <label for="apartments-label">Freie Wohnungen</label>
+                <input id="filter_wohnungen" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Wohnung')">
+                <label for="wohnung-label">Freie Wohnungen</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_schule" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Schule')">
+                <label for="schule-label">Schule</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_kita" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Kindergarten')">
+                <label for="kita-label">Kindergarten</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_supermarkt" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Supermarkt')">
+                <label for="supermarkt-label">Supermarkt</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_beacker" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Bäcker')">
+                <label for="baecker-label">Bäcker</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_spielplatz" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Spielplatz')">
+                <label for="spielplatz-label">Spielplatz</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_bank" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Bank')">
+                <label for="bank-label">Bank</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_post" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Post')">
+                <label for="post-label">Post</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_arzt" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Arzt')">
+                <label for="arzt-label">Arzt</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_busstop" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Bushaltestelle')">
+                <label for="busstop-label">Bushaltestelle</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_tramstop" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Tramhaltestelle')">
+                <label for="tramstop-label">Tramhaltestelle</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_subwaystop" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('S-Bahnhof')">
+                <label for="subwaystop-label">S-Bahnhof</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_neighborhoodcenter" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Nachbarschaftszentrum')">
+                <label for="neighborhoodCenter-label">Nachbarschaftszentrum</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_outpatientcare" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Ambulante Versorgung')">
+                <label for="outpatientcare-label">Ambulante Versorgung</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_pharmacy" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Apotheke')">
+                <label for="pharmacy-label">Apotheke</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_chargingstation" class="filter form-check-input" type="checkbox" onclick="onclickedCheckBox('Ladesaeule')">
+                <label for="chargingstation-label">Ladesaeule</label>
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_sabine" class="filter form-check-input" type="checkbox" onclick="onclickedSabine()">
+                <label for="sabine-label"><i class="fas fa-female"></i> Sabine</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input id="filter_matthias" class="filter form-check-input" type="checkbox" onclick="onclickedMatthias()">
+                <label for="matthias-label"><i class="fas fa-male"></i> Matthias</label>
+            </div>
+        </div>
         <div class="leaflet-tooltip-bottom text-center">
             <small>
                 Visualisiert mit Leaflet<br>
                 &copy; OpenStreetMap contributors
             </small>
         </div>
+
     </div>
 
     <script src="include/jquery-3.4.1.min.js"></script>
@@ -89,45 +192,111 @@
 
         // select a background 'tile' url
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Openstreetmap
-            // L.tileLayer('https://tiles.codefor.de/berlin-2019/{z}/{x}/{y}.png').addTo(map); // Luftbild 2019
-        
-        // create array:
-        var apartmentsMarkers = new Array();//Freie Wohnungen
+        // L.tileLayer('https://tiles.codefor.de/berlin-2019/{z}/{x}/{y}.png').addTo(map); // Luftbild 2019
 
-        var schoolsMarkers = new Array(); //
-        var supermarktsMarkers = new Array();
-        var shopsMarkers = new Array();
-        var banksMarkers = new Array();
-        var postsMarkers = new Array();
-        var doctorsMarkers = new Array();
+        // create array:
+        var wohnungMarkers = new Array();//Freie Wohnungen
+
+        var schuleMarkers = new Array();
+        var kitaMarkers = new Array();
+        var supermarktMarkers = new Array();
+        var baeckerMarkers = new Array();
+        var spielplatzMarkers = new Array();
+        var bankMarkers = new Array();
+        var postMarkers = new Array();
+        var arztMarkers = new Array();
         var busstopsMarkers = new Array();
-        var socialServicesMarkers = new Array();
+        var tramstopsMarkers = new Array();
+        var subwaystopsMarkers = new Array();
+        var neighborhoodcenterMarkers = new Array();
+        var outpatientcareMarkers = new Array();
         var pharmacysMarkers = new Array();
-        var ladesaeulesMarkers = new Array();
+        var chargingstationMarkers = new Array();
 
         var initMarkers = function () {
-            d3.json("immo.json").then(function (json_data) { // load file locally, this does not work out of the box
-                // console.log(json_data);
-                // run for-each loop over each list element from json_data
-                // each element from shapes.json is a json "object",
-                // i.e. it contains the 3 key: value-pairs type: t, coordinates c, options o
-                json_data.forEach(function (element) {
-                    // var lat = parseInt(element["Latitude"].replace('.',""),10)
-                    var lat = element["Latitude"].split('.').join("");
-                    var lng = element["Longitude"].split('.').join("");
+            d3.json("ObjectsWithCategories.json").then(function (json_data) {
+
+                console.log(json_data);
+
+                var features = json_data.features;
+                for (i = 0; i < features.length; i++) {
+                    var item = features[i];
+                    var category = item.properties.category;
+                    console.log(item.geometry.coordinates)
+                    /*var lat = item.geometry.coordinates[0].toString().split('.').join("");
+                    var lng = item.geometry.coordinates[1].toString().split('.').join("");
                     lat = lat[0] + lat[1] + "." + lat.substring(2, lat.size);
-                    lng = lng[0] + lng[1] + "." + lng.substring(2, lng.size);
+                    lng = lng[0] + lng[1] + "." + lng.substring(2, lng.size);*/
+                    var lat = item.geometry.coordinates[1];
+                    var lng = item.geometry.coordinates[0];
 
-                    var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'home'}) });
-                    //var marker = L.marker([lat, lng]);
-                    apartmentsMarkers.push({ Marker: marker, Value: element });
-                });
+                    if (category == "Wohnung") {
 
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'home' }) });
+                        wohnungMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Schule") {
+
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'school' }) });
+                        //var marker = L.marker([lat, lng]);
+                        schuleMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Kindergarten") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'child' }) });
+                        //var marker = L.marker([lat, lng]);
+                        kitaMarkers.push({ Marker: marker, Value: item });
+
+                    } else if (category == "Supermarkt") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'shopping-cart' }) });
+                        //var marker = L.marker([lat, lng]);
+                        supermarktMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Bäcker") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'bread-slice' }) });
+                        baeckerMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Spielplatz") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'playstation' }) });
+                        spielplatzMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Bank") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'piggy-bank' }) });
+                        bankMarkers.push({ Marker: marker, Value: item });
+
+                    } else if (category == "Post") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'mail-bulk' }) });
+                        postMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Arzt") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'briefcase-medical' }) });
+                        arztMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Bushaltestelle") {
+
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'bus' }) });
+                        busstopsMarkers.push({ Marker: marker, Value: item });
+
+                    } else if (category == "Tramhaltestelle") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'train' }) });
+                        tramstopsMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "S-Bahnhof") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'subway' }) });
+                        subwaystopsMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Nachbarschaftszentrum") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'house-user' }) });
+                        neighborhoodcenterMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Ambulante Versorgung") {
+
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'house-user' }) });
+                        outpatientcareMarkers.push({ Marker: marker, Value: item });
+                    } else if (category == "Apotheke") {
+                        pharmacysMarkers.push({ Marker: marker, Value: item });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'prescription-bottle-alt' }) });
+                    } else if (category == "Ladesaeule") {
+                        chargingstationMarkers.push({ Marker: marker, Value: item });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'charging-station' }) });
+                    }
+                }
             });
         };
 
         initMarkers();
 
+
+     
 
     </script>
 
@@ -161,28 +330,88 @@
 
 
         //todo add typ
-        var removeMarkers = function () {
-            for (i = 0; i < apartmentsMarkers.length; i++) {
-                map.removeLayer(apartmentsMarkers[i].Marker);
-            }  
+        var removeMarkers = function (_makers) {
+            for (i = 0; i < _makers.length; i++) {
+                map.removeLayer(_makers[i].Marker);
+            }
         }
+        var onclickedSabine = function () {
 
-        var onclickedApartment = function () {
-            var apartmentsCheckBox = document.getElementById("filter_apartments");
-            if (apartmentsCheckBox.checked == true) {
-                    removeMarkers();//todo with typ
-                    console.log(apartmentsMarkers);
-                apartmentsMarkers.forEach(function (element) {
+        }
+        var onclickedCheckBox = function (_cate) {
+            var makers = new Array();
+            var checkboxValue = undefined;
+
+            if (_cate == "Wohnung") {
+                checkboxValue = document.getElementById("filter_wohnungen");
+                makers = wohnungMarkers;
+            } else if (_cate == "Schule") {
+                checkboxValue = document.getElementById("filter_schule");
+                makers = schuleMarkers;
+            } else if (_cate == "Kindergarten") {
+                checkboxValue = document.getElementById("filter_kita");
+                makers = kitaMarkers;
+            } else if (_cate == "Supermarkt") {
+                checkboxValue = document.getElementById("filter_supermarkt");
+                makers = supermarktMarkers;
+            } else if (_cate == "Bäcker") {
+                checkboxValue = document.getElementById("filter_beacker");
+                makers = baeckerMarkers;
+            } else if (_cate == "Spielplatz") {
+                checkboxValue = document.getElementById("filter_spielplatz");
+                makers = spielplatzMarkers;
+            } else if (_cate == "Bank") {
+                checkboxValue = document.getElementById("filter_bank");
+                makers = bankMarkers;
+            } else if (_cate == "Post") {
+                checkboxValue = document.getElementById("filter_post");
+                makers = postMarkers;
+            } else if (_cate == "Arzt") {
+                checkboxValue = document.getElementById("filter_arzt");
+                makers = arztMarkers;
+            } else if (_cate == "Bushaltestelle") {
+                checkboxValue = document.getElementById("filter_busstop");
+                makers = busstopsMarkers;
+            } else if (_cate == "Tramhaltestelle") {
+                checkboxValue = document.getElementById("filter_tramstop");
+                makers = tramstopsMarkers;
+            } else if (_cate == "S-Bahnhof") {
+                checkboxValue = document.getElementById("filter_subwaystop");
+                makers = subwaystopsMarkers;
+            } else if (_cate == "Nachbarschaftszentrum") {
+                checkboxValue = document.getElementById("filter_neighborhoodcenter");
+                makers = neighborhoodcenterMarkers;
+            } else if (_cate == "Ambulante Versorgung") {
+                checkboxValue = document.getElementById("filter_outpatientcare");
+                makers = outpatientcareMarkers;
+            } else if (_cate == "Apotheke") {
+                checkboxValue = document.getElementById("filter_pharmacy");
+                makers = pharmacysMarkers;
+            } else if (_cate == "Ladesaeule") {
+                checkboxValue = document.getElementById("filter_chargingstation");
+                makers = chargingstationMarkers;
+            }
+
+            if (checkboxValue.checked == true) {
+                //console.log(makers);
+
+             
+
+                makers.forEach(function (element) {
                     var marker = element.Marker;
                     var value = element.Value;
+                    var adresse = value.properties.Adresse;
+                    if (adresse == undefined || adresse == null) adresse = "Keine vorhanden";
+                    console.log(value);
                     map.addLayer(marker);
                     marker.addTo(map)
-                        .bindTooltip("Adresse: " + value["Addresse"]);
-                    });
-                } else {
-                    removeMarkers();//todo with typ
-                }
+                        .bindTooltip("Adresse: " + adresse);
+                });
+            } else {
+                removeMarkers(makers);//todo with typ
+            }
         }
+
     </script>
 
     <script>
