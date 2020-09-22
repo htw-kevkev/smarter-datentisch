@@ -19,7 +19,10 @@
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="include/leaflet.css" />
     <link rel="stylesheet" href="include/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="include/fontawesome-free-5.14.0-web/css/all.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="include/Leaflet.awesome-markers-2.0/leaflet.awesome-markers.css" />
+    
     <style>
         .map {
             cursor: auto;
@@ -36,6 +39,10 @@
             padding: 0.75rem;
             position: fixed;
             z-index: 2000;
+        }
+        .awesome-marker i {
+            font-size: 18px;
+            margin-top: 8px;
         }
     </style>
 </head>
@@ -153,14 +160,14 @@
 
         <div class="form-group">
             <div class="form-check">
-                <input id="filter_sabine" class="filter form-check-input" type="checkbox" onclick="onclickedSabine()">
-                <label for="sabine-label"><i class="fas fa-female"></i> Sabine</label>
+                <input id="filter_sabine" class="filter form-check-input" type="checkbox" onclick="onclickedPerson('Sabine')">
+                <label for="sabine-label"><i class="fas fa-female" style="color:red"></i> Sabine</label>
             </div>
         </div>
         <div class="form-group">
             <div class="form-check">
-                <input id="filter_matthias" class="filter form-check-input" type="checkbox" onclick="onclickedMatthias()">
-                <label for="matthias-label"><i class="fas fa-male"></i> Matthias</label>
+                <input id="filter_matthias" class="filter form-check-input" type="checkbox" onclick="onclickedPerson('Matthias')">
+                <label for="matthias-label"><i class="fas fa-male" style="color: #000080"></i> Matthias</label>
             </div>
         </div>
         <div class="leaflet-tooltip-bottom text-center">
@@ -176,7 +183,9 @@
     <script src="include/leaflet.js"></script>
     <script src="include/d3-5.15.0.min.js"></script> <!-- add d3 to load csv or json data from local / remote -->
 
+    <script src="include/fontawesome-free-5.14.0-web/all.js"></script><!--add icon in marker-->
     <script src="include/Leaflet.Icon.Glyph.js"></script><!--add icon in marker-->
+    <script src="include/Leaflet.awesome-markers-2.0/leaflet.awesome-markers.js"></script><!--add icon in marker-->
     <script>
         var map = L.map("map", {
             dragging: false,
@@ -193,7 +202,7 @@
         // select a background 'tile' url
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Openstreetmap
         // L.tileLayer('https://tiles.codefor.de/berlin-2019/{z}/{x}/{y}.png').addTo(map); // Luftbild 2019
-
+        L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
         // create array:
         var wohnungMarkers = new Array();//Freie Wohnungen
 
@@ -240,7 +249,7 @@
                         //var marker = L.marker([lat, lng]);
                         schuleMarkers.push({ Marker: marker, Value: item });
                     } else if (category == "Kindergarten") {
-                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'child' }) });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'baby' }) });
                         //var marker = L.marker([lat, lng]);
                         kitaMarkers.push({ Marker: marker, Value: item });
 
@@ -252,14 +261,14 @@
                         var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'bread-slice' }) });
                         baeckerMarkers.push({ Marker: marker, Value: item });
                     } else if (category == "Spielplatz") {
-                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'playstation' }) });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'child' }) });
                         spielplatzMarkers.push({ Marker: marker, Value: item });
                     } else if (category == "Bank") {
-                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'piggy-bank' }) });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'euro-sign' }) });
                         bankMarkers.push({ Marker: marker, Value: item });
 
                     } else if (category == "Post") {
-                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'mail-bulk' }) });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'cubes' }) });
                         postMarkers.push({ Marker: marker, Value: item });
                     } else if (category == "Arzt") {
                         var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'briefcase-medical' }) });
@@ -279,15 +288,14 @@
                         var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'house-user' }) });
                         neighborhoodcenterMarkers.push({ Marker: marker, Value: item });
                     } else if (category == "Ambulante Versorgung") {
-
-                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'house-user' }) });
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'hospital-user' }) });
                         outpatientcareMarkers.push({ Marker: marker, Value: item });
                     } else if (category == "Apotheke") {
+                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'clinic-medical' }) });
                         pharmacysMarkers.push({ Marker: marker, Value: item });
-                        var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'prescription-bottle-alt' }) });
                     } else if (category == "Ladesaeule") {
-                        chargingstationMarkers.push({ Marker: marker, Value: item });
                         var marker = L.marker([lat, lng], { icon: L.icon.glyph({ prefix: 'fas', glyph: 'charging-station' }) });
+                        chargingstationMarkers.push({ Marker: marker, Value: item });
                     }
                 }
             });
@@ -295,9 +303,97 @@
 
         initMarkers();
 
+        var peopleSabine = {
+            name: "Sabine",
+            coordinates: [52.5662838, 13.5159394],
+            adresse: "Randowstr. 38",
+            code: "13057 Berlin, Neu-Hohenschönhausen (Hohenschönhausen) ",
+            categories: [{
+                category: "Arzt",
+                icon: "briefcase-medical",
+                name: "Gemeinschaftspraxis H.Remde & Dr.S.Lischeid",
+                coordinates: [52.5654954, 13.5208051],
+                Luftdistanz: "341 m",
+                Routenlänge: "771 m",
+                Route: [[52.5663102, 13.5160691], [52.5664977, 13.5158584], [52.5666099, 13.5161075], [52.5660419, 13.5168159], [52.566032, 13.5168815],
+                [52.5660247, 13.5169293], [52.5660391, 13.5171866], [52.5660679, 13.5174169], [52.5659992,
+                    13.5174771], [52.5660483, 13.5175814], [52.566136, 13.5177922], [52.5661718, 13.5178835], [52.5661436, 13.5179777]
+                    , [52.5658296, 13.5183713], [52.5663044, 13.519376], [52.56611, 13.519648], [52.5660709, 13.519766], [52.5661054,
+                    13.5198633], [52.5661519, 13.5199626], [52.5659106, 13.5202972], [52.5658855, 13.5202953], [52.5657836, 13.5210183
+                ], [52.5656739, 13.5218151], [52.565659, 13.5219231], [52.5655628, 13.5225874], [52.5655147, 13.5226634],
+                [52.56543, 13.522534], [52.5650353, 13.5216756], [52.5656065, 13.5209478]]
+            }, {
+                    category: "Bank",
+                    icon: "euro-sign",
+                name: "Berliner Sparkasse",
+                coordinates: [52.566474, 13.5186628],
+                Luftdistanz: "185 m",
+                Routenlänge: "263 m",
+                Route: [[52.5663102, 13.5160691], [52.5664977, 13.5158584], [52.5666099, 13.5161075], [52.5660419, 13.5168159],
+                [52.566032, 13.5168815], [52.5660247, 13.5169293], [52.5660391, 13.5171866], [52.5660679, 13.5174169], [52.5659992,
+                    13.5174771], [52.5660483, 13.5175814], [52.566136, 13.5177922], [52.5661718, 13.5178835], [52.5664693, 13.5185084]
+                ]
+            },
+            {
+                category: "S-Bahnhof",
+                icon: "subway",
+                name: "S Hohenschönhausen Bhf",
+                coordinates: [52.5664265, 13.5122367],
+                Luftdistanz: "251 m",
+                Routenlänge: "357 m",
+                Route: [[52.5663102, 13.5160691], [52.5664977, 13.5158584], [52.5668788, 13.5154576], [52.5669915, 13.5153391],
+                [52.5668938, 13.5150922], [52.5668736, 13.5150411], [52.566753, 13.5147365], [52.5667249, 13.5146654], [52.5666048,
+                    13.5140579], [52.5666377, 13.5140248], [52.5666674, 13.513997], [52.5666266, 13.5139424], [52.5665195, 13.5136652]
+                    , [52.5663793, 13.5133023], [52.5662645, 13.5130051], [52.5662758, 13.5129874], [52.5662418, 13.512905],
+                [52.5661954, 13.5127885], [52.5661587, 13.5126923], [52.5661482, 13.5126644], [52.5662414, 13.5125478],
+                [52.5662354, 13.5125346], [52.5662364, 13.5125333], [52.5663743, 13.512363], [52.566388, 13.512354], [52.5663989, 13.5123402],
+                [52.5664626, 13.5122614], [52.5664662, 13.5122569], [52.5664318, 13.5121827]]
+            }]
+        };
+        var peopleMatthias = {
+            name: "Matthias",
+            coordinates: [52.5654954, 13.5208051],
+            adresse: "Warnitzer Str. 32",
+            code: "13057 Berlin, Neu-Hohenschönhausen [Hohenschönhausen]",
+            categories: [{
+                category: "Supermarkt",
+                icon: "shopping-cart",
+                name: "Rewe",
+                coordinates: [52.5649588, 13.5232991],
+                Luftdistanz: "179 m",
+                Routenlänge: "620 m",
+                Route: [[52.5656065, 13.5209478], [52.5650353, 13.5216756], [52.56543, 13.522534], [52.5655147, 13.5226634],
+                [52.5655628, 13.5225874], [52.565659, 13.5219231], [52.5656739, 13.5218151], [52.5657836, 13.5210183], [52.5658855, 13.5202953],
+                [52.5657405, 13.5202843], [52.5657105, 13.5199733], [52.5655665, 13.5201468], [52.565132, 13.5192502], [
+                    52.56494, 13.5188431], [52.5643659, 13.5180916], [52.5642726, 13.5181228], [52.5641055, 13.5183597]]
+            }, {
+                    category: "Schule",
+                    icon: "school",
+                name: "Randow-Schule (Grundschule)",
+                coordinates: [52.563980425969397, 13.519021164615209],
+                Luftdistanz: "207 m",
+                Routenlänge: "620 m",
+                Route: [[52.5656065, 13.5209478], [52.5650353, 13.5216756], [52.56543, 13.522534], [52.5655147, 13.5226634],
+                [52.5655628, 13.5225874], [52.565659, 13.5219231], [52.5656739, 13.5218151], [52.5657836, 13.5210183],
+                [52.5658855, 13.5202953], [52.5657405, 13.5202843], [52.5657105, 13.5199733], [52.5655665, 13.5201468], [52.565132, 13.5192502], [
+                    52.56494, 13.5188431], [52.5643659, 13.5180916], [52.5642726, 13.5181228], [52.5641055, 13.5183597]]
+            }, {
+                category: "Bushaltestelle",
+                icon:"bus",
+                name: "Vincent-van-Gogh-Straße",
+                coordinates: [52.5651286, 13.5241692],
+                Luftdistanz: "231 m",
+                Routenlänge: "751 m",
+                Route: [[52.5656065, 13.5209478], [52.5650353, 13.5216756], [52.56543, 13.522534], [52.5655147, 13.5226634],
+                [52.5655628, 13.5225874], [52.565659, 13.5219231], [52.5656739, 13.5218151], [52.5657836, 13.5210183],
+                [52.5658855, 13.5202953], [52.5657405, 13.5202843], [52.565608, 13.5204623], [52.565563, 13.5203503], [52.5652456, 13.5207492],
+                [52.5646622, 13.5214934], [52.5646377, 13.5215365], [52.5646491, 13.5216958], [52.5650867, 13.5226168], [52.5651131,
+                    13.5226725], [52.5656005, 13.5236996], [52.5654929, 13.5238349], [52.5651716, 13.5242391]]
+            }]
+        };
 
-     
-
+        var sabineMarkers = new Array();
+        var matthiasMarkers = new Array();
     </script>
 
     <!-- <script>
@@ -329,14 +425,114 @@
         // d3.json("https://wosla.de/nhsh/workshop/shapes.json").then(function(json_data) {
 
 
-        //todo add typ
+        
         var removeMarkers = function (_makers) {
             for (i = 0; i < _makers.length; i++) {
                 map.removeLayer(_makers[i].Marker);
             }
         }
-        var onclickedSabine = function () {
+        var removePersonMarkers = function (_makers) {
+            for (i = 0; i < _makers.length; i++) {
+                map.removeLayer(_makers[i]);
+            }
+        }
+        var onclickedPerson = function (_name) {
+            var personValue = undefined;
+            var personMarkerIcon = undefined;
+            var routecolor = "#ff85c2";//pink
+            var catesMarkerVaules = [];
+            var checkboxValue = undefined;
 
+            if (_name == "Sabine") {
+                checkboxValue = document.getElementById("filter_sabine");
+            } else {
+                checkboxValue = document.getElementById("filter_matthias");
+            }
+
+            if (checkboxValue.checked == true) {
+                if (_name == "Sabine") {
+                    personValue = peopleSabine;
+                    // Creates a red marker with the female icon
+                    var redMarker = L.AwesomeMarkers.icon({
+                        icon: 'female',
+                        markerColor: "red"
+                    });
+
+                    personMarkerIcon = redMarker;
+                    var cates = personValue.categories;
+                    cates.forEach(function (_cate) {
+                        var markericon = L.AwesomeMarkers.icon({
+                            icon: _cate.icon,
+                            markerColor: "red"
+                        });
+                        catesMarkerVaules.push({ coordinates: _cate.coordinates, icon: markericon, value: _cate })
+                    });
+                } else {
+                    // Matthias
+                    personValue = peopleMatthias;
+                    routecolor = '#89cff0';
+                    // Creates a blue marker with the male icon
+                    var blueMarker = L.AwesomeMarkers.icon({
+                        icon: 'male',
+                        markerColor: 'blue'
+                    });
+                    var cates = personValue.categories;
+                    cates.forEach(function (_cate) {
+                        var markericon = L.AwesomeMarkers.icon({
+                            icon: _cate.icon,
+                            markerColor: 'blue'
+                        });
+
+                        catesMarkerVaules.push({ coordinates: _cate.coordinates, icon: markericon, value: _cate })
+                    });
+                    personMarkerIcon = blueMarker;
+                }
+
+
+                var personmarker = L.marker(personValue.coordinates, { icon: personMarkerIcon });
+                map.addLayer(personmarker);
+                personmarker.addTo(map).bindTooltip("Name: " + personValue.name);
+                personmarker.bindPopup("<b>Ich bin " + personValue.name + "!</b>").openPopup();
+
+                if (_name == "Sabine") {
+                    sabineMarkers = new Array(); //clear
+                    sabineMarkers.push(personmarker);
+                } else {
+                    matthiasMarkers = new Array(); //clear
+                    matthiasMarkers.push(personmarker);
+                }
+                catesMarkerVaules.forEach(function (element) {
+                    console.log(element.value)
+                    var name = element.value.name;
+                    var category = element.value.category;
+                    if (name == undefined || name == null) adresse = "Keine vorhanden";
+                    var catemarker = L.marker(element.coordinates, { icon: element.icon });
+                    map.addLayer(catemarker);
+                    catemarker.addTo(map)
+                        .bindTooltip(category + ":  " + name);
+
+                    catemarker.bindPopup("<b>" + category + ": </b>" + name+ "</br>Luftdistanz: " + element.value.Luftdistanz + "</br>Routenlänge: " + element.value.Routenlänge);
+
+                    var route = L.polyline(element.value.Route, { "color": routecolor})
+                    route.addTo(map);
+
+                    if (_name == "Sabine") {
+                        sabineMarkers.push(catemarker);
+                        sabineMarkers.push(route);
+                    } else {
+                        matthiasMarkers.push(catemarker);
+                        matthiasMarkers.push(route);
+                    }
+                });
+
+            } else {
+                if (_name == "Sabine") {
+
+                    removePersonMarkers(sabineMarkers);
+                } else {
+                    removePersonMarkers(matthiasMarkers);
+                }
+            }
         }
         var onclickedCheckBox = function (_cate) {
             var makers = new Array();
@@ -395,8 +591,6 @@
             if (checkboxValue.checked == true) {
                 //console.log(makers);
 
-             
-
                 makers.forEach(function (element) {
                     var marker = element.Marker;
                     var value = element.Value;
@@ -406,9 +600,15 @@
                     map.addLayer(marker);
                     marker.addTo(map)
                         .bindTooltip("Adresse: " + adresse);
+                    var name = value.properties.name;
+                    if (!name) name = value.properties.operator;
+                    if (!name) name = "Keine vorhanden";
+                        
+                    marker.bindPopup("<b>" + value.properties.category + ": </b>" + name);
+
                 });
             } else {
-                removeMarkers(makers);//todo with typ
+                removeMarkers(makers);
             }
         }
 
