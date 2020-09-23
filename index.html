@@ -494,7 +494,7 @@
                 var personmarker = L.marker(personValue.coordinates, { icon: personMarkerIcon });
                 map.addLayer(personmarker);
                 personmarker.addTo(map).bindTooltip("Name: " + personValue.name);
-                personmarker.bindPopup("<b>Ich bin " + personValue.name + "!</b>").openPopup();
+                personmarker.bindPopup("<b>Ich bin " + personValue.name + "!</b><br />Der Score für diese Wohnlage ist <b>" + personValue.score + "</b>").openPopup();
 
                 if (_name == "Sabine") {
                     sabineMarkers = new Array(); //clear
