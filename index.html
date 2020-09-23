@@ -601,10 +601,34 @@
                     marker.addTo(map)
                         .bindTooltip("Adresse: " + adresse);
                     var name = value.properties.name;
+                    if (!name) name = value.properties.NAME;
                     if (!name) name = value.properties.operator;
-                    if (!name) name = "Keine vorhanden";
-                        
-                    marker.bindPopup("<b>" + value.properties.category + ": </b>" + name);
+                    
+                    if (!name) name = "";
+                    else name = ": " + name;
+
+                    var decription = "";
+
+                    if (_cate == "Wohnung") {
+                        decription = "<br/><b>Adresse: </b>" + adresse
+                            + "<br/><b>Wohnflaeche: </b>" + value.properties.Wohnflaeche
+                            + "<br/><b>Extras: </b>" + value.properties.Extras
+                            + "<br/><b>Bezugsfrei: </b>" + value.properties.Bezugsfrei
+                            + "<br/><b>Zimmer: </b>" + value.properties.Zimmer
+                            + "<br/><b>Kaltmiete: </b>" + value.properties.Kaltmiete;
+                    }
+                    if (_cate == "Schule") {
+                        decription = "<br/><b>Adresse: </b>" + adresse
+                            + "<br/><b>Schulart: </b>" + value.properties.SCHULART
+                            + "<br/><b>Telefon: </b>" + value.properties.TELEFON
+                            + "<br/><b>Fax: </b>" + value.properties.FAX
+                            + "<br/><b>E-Mail: </b>" + value.properties.EMAIL;
+                    } 
+                    if (_cate == "Kindergarten") {
+                        decription = "<br/><b>Adresse: </b>" + adresse
+                            + "<br/><b>Telefon: </b>" + value.properties.Telefon;
+                    } 
+                    marker.bindPopup("<b>" + value.properties.category + "</b>" + name + decription);
 
                 });
             } else {
