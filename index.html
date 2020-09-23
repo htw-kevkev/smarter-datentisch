@@ -474,13 +474,13 @@
                     // Creates a blue marker with the male icon
                     var blueMarker = L.AwesomeMarkers.icon({
                         icon: 'male',
-                        markerColor: 'blue'
+                        markerColor: 'darkblue'
                     });
                     var cates = personValue.categories;
                     cates.forEach(function (_cate) {
                         var markericon = L.AwesomeMarkers.icon({
                             icon: _cate.icon,
-                            markerColor: 'blue'
+                            markerColor: 'darkblue'
                         });
 
                         catesMarkerVaules.push({ coordinates: _cate.coordinates, icon: markericon, value: _cate })
